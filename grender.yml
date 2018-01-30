@@ -1,0 +1,26 @@
+# grender config
+# @author jeff <jefurry@qq.com>
+---
+
+server:
+  listen-ip: 0.0.0.0
+  listen-port: 1323
+  mode: debug
+log:
+  log-file: logs/grender.log
+  access-file: logs/access.log
+  max-size: 10000000
+  max-rolls: 30
+render:
+  stl-file-paths:
+    - examples/
+  image-file-paths:
+    - examples/images/
+jwt:
+  expires: 5
+  issuer: 3d@grender
+  audience: urn:grender
+  subject: grender
+
+...
+
