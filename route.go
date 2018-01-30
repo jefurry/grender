@@ -35,7 +35,7 @@ func render3d(c *gin.Context) {
 		authorization := c.GetHeader("Authorization")
 		token := strings.TrimPrefix(authorization, "Bearer ")
 		//claims, err := parseToken(token)
-		_, err := parseToken(token)
+		_, err := ParseToken(token)
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{"message": "401 Unauthorized"})
 			return

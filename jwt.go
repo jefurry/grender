@@ -19,12 +19,12 @@ func getKey() string {
 	return jwt_key_secret
 }
 
-func genToken(exp int64, iss, sub, aud string) (string, error) {
+func GenToken(exp int64, id, iss, sub, aud string) (string, error) {
 	key := getKey()
 
 	t := time.Now().Unix()
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-		Id:        "1",
+		Id:        id,
 		NotBefore: t - exp,
 		ExpiresAt: t + exp,
 		IssuedAt:  t,
@@ -41,7 +41,7 @@ func genToken(exp int64, iss, sub, aud string) (string, error) {
 	return tokenString, nil
 }
 
-func parseToken(tokenString string) (jwt.MapClaims, error) {
+func ParseToken(tokenString string) (jwt.MapClaims, error) {
 	key := getKey()
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return []byte(key), nil
