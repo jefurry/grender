@@ -44,9 +44,9 @@ func render3d(c *gin.Context) {
 	}
 
 	//modelId := c.PostForm("model-id")
+	//size := c.PostForm("size")
 	bgcolor := fauxgl.HexColor(c.DefaultPostForm("bg-color", defaultBgColor))
 	fgcolor := fauxgl.HexColor(c.DefaultPostForm("fg-color", defaultFgColor))
-	//size := c.PostForm("size")
 	stlFile := c.PostForm("stl-file")
 	imagePath := c.PostForm("image-path")
 

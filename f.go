@@ -101,6 +101,10 @@ func GetHashDir(dir, name string) (string, error) {
 
 	d := path.Join(dir, strings.Join(hashDir, string(os.PathSeparator)))
 	if err := EnsurePath(d, true); err != nil {
+		if os.IsExist(err) {
+			return d, nil
+		}
+
 		return "", err
 	}
 
