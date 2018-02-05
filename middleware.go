@@ -9,16 +9,17 @@ import (
 
 var (
 	accessLogger     seelog.LoggerInterface = nil
-	ByteBufferWriter *bytes.Buffer          = bytes.NewBuffer(nil)
+	byteBufferWriter *bytes.Buffer          = bytes.NewBuffer(nil)
 )
 
 func SeeLogger() gin.HandlerFunc {
-	f := gin.LoggerWithWriter(ByteBufferWriter)
+	f := gin.LoggerWithWriter(byteBufferWriter)
 
 	return func(c *gin.Context) {
 		defer accessLogger.Flush()
+
 		f(c)
-		msg := ByteBufferWriter.String()
+		msg := byteBufferWriter.String()
 		accessLogger.Info(msg)
 	}
 }

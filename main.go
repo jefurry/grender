@@ -56,7 +56,7 @@ func main() {
 					Usage: "attach config file",
 				},
 				cli.StringFlag{
-					Name:  "mode, m",
+					Name:  "mode-name, mode",
 					Usage: "set gin mode", // debug, test or release
 				},
 			},
