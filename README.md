@@ -1,7 +1,7 @@
 # grender
 Software-only 3D Models renderer written in Go.
 
-#Usage
+# Usage
 
 `git clone github.com/jefurry/grender`
 
