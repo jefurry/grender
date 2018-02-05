@@ -54,21 +54,19 @@ func fauxgl_render(modelId, size int, fgcolor, bgcolor, stlFile, imageFile strin
 		// 三角形个数
 		box.SetTriangleCount(triangle_count)
 		/*
-			// 表面积
+			// suface area
 			box.SeekArea(triangle)
-			// 体积
+			// volume
 			box.SeekVolume(triangle)
 		*/
-		// 长宽高
+		// box
 		box.SeekBoundsBox(triangle)
 	}
 
 	var unit, percision uint8 = gobox.UNIT_CM, 2
 	ct := gobox.DefaultConverter
 	/*
-		fmt.Println("表面积: ")
 		fmt.Println(box.GetArea(unit, percision))
-		fmt.Println("体积: ")
 		fmt.Println(box.GetVolume(unit, percision))
 	*/
 	bbox, err := box.GetBoundsBox(unit, percision)
