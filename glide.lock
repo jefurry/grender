@@ -1,5 +1,5 @@
-hash: 5e412e9d739c425c25e405b4a97ee9e41e05589ad63d152fce358110820ba0bd
-updated: 2018-01-30T16:24:47.057142599+08:00
+hash: 2fdffdbc18a9c875faa5d1061bd5f438aaad0e25bba9019dfd57bd0d8d113d11
+updated: 2018-02-05T19:04:17.149950502+08:00
 imports:
 - name: github.com/cihub/seelog
   version: d2c6e5aa9fbfdd1c624e140287063c7730654115
@@ -19,21 +19,23 @@ imports:
   - binding
   - render
 - name: github.com/golang/protobuf
-  version: 925541529c1fa6821df4e44ce2723319eb2be768
+  version: bbd03ef6da3a115852eaf24c8a1c46aeb39aa175
   subpackages:
   - proto
+- name: github.com/jefurry/gobox
+  version: 4e451bf870ab9c63137b0d19905e919fc9f507fd
 - name: github.com/mattn/go-isatty
   version: 6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c
 - name: github.com/nfnt/resize
   version: 891127d8d1b52734debe1b3c3d7e747502b6c366
 - name: github.com/ugorji/go
-  version: d2b24cf3d3b4fe77f5ca411be71afb460ce4c92d
+  version: 105e48374b52c9b820c27b847c43fd30cce16534
   subpackages:
   - codec
 - name: github.com/urfave/cli
-  version: 75104e932ac2ddb944a6ea19d9f9f26316ff1145
+  version: 803d0665796d3b09d3190067803fc285d1604732
 - name: golang.org/x/sys
-  version: 3dbebcf8efb6a5011a60c2b4591c1022a759af8a
+  version: 37707fdb30a5b38865cfb95e5aab41707daec7fd
   subpackages:
   - unix
 - name: gopkg.in/go-playground/validator.v8
