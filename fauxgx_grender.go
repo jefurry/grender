@@ -51,7 +51,6 @@ func fauxgl_render(modelId, size int, fgcolor, bgcolor, stlFile, imageFile strin
 
 		triangle := &gobox.Triangle{V1: v1, V2: v2, V3: v3}
 		triangle_count += 1
-		// 三角形个数
 		box.SetTriangleCount(triangle_count)
 		/*
 			// suface area
