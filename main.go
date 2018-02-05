@@ -53,7 +53,11 @@ func main() {
 				*/
 				cli.StringFlag{
 					Name:  "config-file, c",
-					Usage: "config file",
+					Usage: "attach config file",
+				},
+				cli.StringFlag{
+					Name:  "mode, m",
+					Usage: "set gin mode", // debug, test or release
 				},
 			},
 			Action: func(ctx *cli.Context) error {
@@ -63,8 +67,19 @@ func main() {
 				}
 				config = conf
 
+				mode := ctx.String("mode")
 				debug := true
-				if *config.Server.Mode == gin.ReleaseMode {
+				if *config.Server.Mode != gin.ReleaseMode {
+					debug = false
+				}
+				if mode == gin.DebugMode {
+					*config.Server.Mode = mode
+					debug = true
+				} else if mode == gin.TestMode {
+					*config.Server.Mode = mode
+					debug = false
+				} else if mode == gin.ReleaseMode {
+					*config.Server.Mode = mode
 					debug = false
 				}
 
