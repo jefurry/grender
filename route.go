@@ -97,5 +97,7 @@ func render3d(c *gin.Context) {
 		return
 	}
 
+	Logger.Infof("Render Succed for: 'model-id=%d, file-size=%d, stl-file=%s, image-file=%s'", modelId, size, stlFile, imageFile)
+
 	c.JSON(http.StatusOK, h)
 }
