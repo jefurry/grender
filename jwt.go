@@ -11,7 +11,7 @@ var (
 )
 
 func getKey() string {
-	key := os.Getenv("GRENDER_JWT_KEY_SECRET")
+	key := os.Getenv("GRENDER_JWT_SECRET_KEY")
 	if key != "" {
 		return key
 	}
