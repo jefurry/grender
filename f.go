@@ -23,7 +23,7 @@ func EnsurePath(path string, dir bool) error {
 	return os.MkdirAll(path, 0755)
 }
 
-func RandByte(n int) []byte {
+func RandBytes(n int) []byte {
 	chars := []byte{
 		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
 		'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -53,7 +53,7 @@ func GoId() (int, error) {
 
 func GenName(name string) string {
 	if name == "" {
-		rs := string(RandByte(32))
+		rs := string(RandBytes(32))
 		pid := int64(os.Getpid())
 		wd := rs + "-" + strconv.FormatInt(pid, 10)
 
