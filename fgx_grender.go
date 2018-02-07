@@ -118,8 +118,9 @@ func fauxgl_render(modelId, size int, fgcolor, bgcolor, stlFile, imageFile strin
 	}
 
 	return gin.H{"data": gin.H{
-		"image-file": imageFile,
 		"model-id":   modelId,
+		"size":       size,
+		"image-file": imageFile,
 		"volume":     volume,
 		"area":       area,
 		"box": gin.H{
