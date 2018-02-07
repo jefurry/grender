@@ -15,6 +15,7 @@ func render3d(c *gin.Context) {
 	if *config.Server.Mode != gin.DebugMode {
 		authorization := c.GetHeader("Authorization")
 		token := strings.TrimPrefix(authorization, "Bearer ")
+		Logger.Infof("Received Token for %s", token)
 		//claims, err := parseToken(token)
 		_, err := ParseToken(token)
 		if err != nil {
