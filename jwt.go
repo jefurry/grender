@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	jwt_key_secret string = "xxxxxxxxxx"
+	JWTKeySecret string = "xxxxxxxxxx"
 )
 
 func getKey() string {
@@ -16,7 +16,7 @@ func getKey() string {
 		return key
 	}
 
-	return jwt_key_secret
+	return JWTKeySecret
 }
 
 func GenToken(exp int64, id, iss, sub, aud string) (string, error) {
