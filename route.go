@@ -13,6 +13,7 @@ import (
 func render3d(c *gin.Context) {
 	defer Logger.Flush()
 
+	//fmt.Println(GenToken(500, "1", "3d@grender", "grender", "urn:grender"))
 	modelId := 1
 	if *config.Server.Mode != gin.DebugMode {
 		authorization := c.GetHeader("Authorization")
