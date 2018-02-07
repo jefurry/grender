@@ -9,5 +9,5 @@ Software-only 3D Models renderer written in Go.
 
 `go build`
 
-`GRENDER_JWT_KEY_SECRET="xxxxxxxxxx" ./grender start --config-file grender.yml --mode-name=debug`
+`GRENDER_JWT_SECRET_KEY="xxxxxxxxxx" ./grender start --config-file grender.yml --mode-name=debug`
 
