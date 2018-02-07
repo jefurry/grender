@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"net"
 	"net/http"
 	"path"
 	"strconv"
@@ -12,6 +13,13 @@ import (
 // curl localhost:1323/render3d -H "Authorization: Bearer token" -X POST --data "bg-color=13421772&fg-color=205&stl-file=examples/cab.stl&image-path=examples/images/"
 func render3d(c *gin.Context) {
 	defer Logger.Flush()
+
+	clientIP := c.ClientIP()
+	if ip := net.ParseIP(clientIP); ip != nil {
+		Logger.Infof("Client IP for Request: '%v'", ip)
+	} else {
+		Logger.Warnf("Invalid Client IP for Request: '%v'", clientIP)
+	}
 
 	//fmt.Println(GenToken(500, "1", "3d@grender", "grender", "urn:grender"))
 	modelId := 1
