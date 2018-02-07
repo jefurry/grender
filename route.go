@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"path"
+	"strconv"
 	"strings"
 )
 
@@ -12,30 +13,68 @@ import (
 func render3d(c *gin.Context) {
 	defer Logger.Flush()
 
+	modelId := 1
 	if *config.Server.Mode != gin.DebugMode {
 		authorization := c.GetHeader("Authorization")
 		token := strings.TrimPrefix(authorization, "Bearer ")
 		Logger.Infof("Received Token for '%s'", token)
 		//claims, err := parseToken(token)
-		_, err := ParseToken(token)
+		claims, err := ParseToken(token)
 		if err != nil {
-			Logger.Error(err.Error())
+			Logger.Errorf("Parse Token for: %s", err.Error())
 			c.JSON(http.StatusUnauthorized, gin.H{"message": "401 Unauthorized"})
 			return
 		}
-		//fmt.Println(claims["iss"], claims["nbf"])
+
+		jti, ok := claims["jti"].(string)
+		if !ok || jti == "" {
+			Logger.Errorf("Invalid jti for '%v'", jti)
+			c.JSON(http.StatusUnauthorized, gin.H{"message": "401 Unauthorized"})
+			return
+		}
+
+		id, err := strconv.Atoi(jti)
+		if err != nil {
+			Logger.Errorf("Parse Token jti for: %s", err.Error())
+			c.JSON(http.StatusUnauthorized, gin.H{"message": "401 Unauthorized"})
+			return
+		}
+
+		if id <= 0 {
+			Logger.Errorf("Invalid modelId for '%v'", id)
+			c.JSON(http.StatusUnauthorized, gin.H{"message": "401 Unauthorized"})
+			return
+		}
+
+		modelId = id
 	}
 
-	//modelId := c.PostForm("model-id")
-	//size := c.PostForm("size")
-	modelId := 1 //c.PostForm("model-id")
-	size := 0    //c.PostForm("size")
+	fileSize := c.DefaultPostForm("size", "0")
 	bgcolor := c.DefaultPostForm("bg-color", defaultBgColor)
 	fgcolor := c.DefaultPostForm("fg-color", defaultFgColor)
 	stlFile := c.PostForm("stl-file")
 	imagePath := c.PostForm("image-path")
 
-	if !FindPrefixInStringArray(stlFile, config.Render.StlFilePaths) || !FindPrefixInStringArray(imagePath, config.Render.ImageFilePaths) {
+	size, err := strconv.Atoi(fileSize)
+	if err != nil {
+		Logger.Errorf("Parse size for: %s", err.Error())
+		c.JSON(http.StatusUnauthorized, gin.H{"message": "401 Unauthorized"})
+		return
+	}
+	if size <= 0 {
+		Logger.Errorf("Invalid size for: '%v'", fileSize)
+		c.JSON(http.StatusUnauthorized, gin.H{"message": "401 Unauthorized"})
+		return
+	}
+
+	if !FindPrefixInStringArray(stlFile, config.Render.StlFilePaths) {
+		Logger.Errorf("Invalid Stl File Path for '%v'", stlFile)
+		c.JSON(http.StatusBadRequest, gin.H{"message": "400 Bad Request"})
+		return
+	}
+
+	if !FindPrefixInStringArray(imagePath, config.Render.ImageFilePaths) {
+		Logger.Errorf("Invalid Image File Path for '%v'", imagePath)
 		c.JSON(http.StatusBadRequest, gin.H{"message": "400 Bad Request"})
 		return
 	}
@@ -43,7 +82,7 @@ func render3d(c *gin.Context) {
 	name := GenName("")
 	dir, err := GetHashDir(imagePath, name)
 	if err != nil {
-		Logger.Error(err.Error())
+		Logger.Errorf("Generate dir Failed: %s", err.Error())
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Server Internal Error"})
 		return
 	}
@@ -52,7 +91,7 @@ func render3d(c *gin.Context) {
 
 	h, err := fauxgl_render(modelId, size, fgcolor, bgcolor, stlFile, imageFile)
 	if err != nil {
-		Logger.Error(err.Error())
+		Logger.Errorf("Render Faield: %s", err.Error())
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Server Internal Error"})
 		return
 	}

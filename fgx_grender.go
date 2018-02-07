@@ -25,8 +25,8 @@ var (
 	defaultBgColor = "#CCCCCC"
 )
 
-// curl localhost:1323/render3d -H "Authorization: Bearer token" -X POST --data "bgcolor=13421772&fgcolor=205" --data-urlencode
-// curl localhost:1323/render3d -H "Authorization: Bearer token" -X POST --data "bg-color=13421772&fg-color=205&stl-file=examples/cab.stl&image-path=examples/images/"
+// curl localhost:1323/render3d -H "Authorization: Bearer token" -X POST --data "bgcolor=#cccccc&fgcolor=#0000ff" --data-urlencode
+// curl localhost:1323/render3d -H "Authorization: Bearer token" -X POST --data "model-id=1&size=1&bg-color=#cccccc&fg-color=#0000ff&stl-file=examples/cab.stl&image-path=examples/images/"
 func fauxgl_render(modelId, size int, fgcolor, bgcolor, stlFile, imageFile string) (gin.H, error) {
 	fc := fauxgl.HexColor(fgcolor)
 	bc := fauxgl.HexColor(bgcolor)
