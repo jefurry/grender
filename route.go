@@ -18,7 +18,7 @@ func render3d(c *gin.Context) {
 	if *config.Server.Mode != gin.DebugMode {
 		authorization := c.GetHeader("Authorization")
 		token := strings.TrimPrefix(authorization, "Bearer ")
-		Logger.Infof("Received Token for '%s'", token)
+		Logger.Infof("Received Token for: '%s'", token)
 		//claims, err := parseToken(token)
 		claims, err := ParseToken(token)
 		if err != nil {
@@ -29,7 +29,7 @@ func render3d(c *gin.Context) {
 
 		jti, ok := claims["jti"].(string)
 		if !ok || jti == "" {
-			Logger.Errorf("Invalid jti for '%v'", jti)
+			Logger.Errorf("Invalid jti for: '%v'", jti)
 			c.JSON(http.StatusUnauthorized, gin.H{"message": "401 Unauthorized"})
 			return
 		}
@@ -42,7 +42,7 @@ func render3d(c *gin.Context) {
 		}
 
 		if id <= 0 {
-			Logger.Errorf("Invalid modelId for '%v'", id)
+			Logger.Errorf("Invalid modelId for: '%v'", id)
 			c.JSON(http.StatusUnauthorized, gin.H{"message": "401 Unauthorized"})
 			return
 		}
@@ -69,13 +69,13 @@ func render3d(c *gin.Context) {
 	}
 
 	if !FindPrefixInStringArray(stlFile, config.Render.StlFilePaths) {
-		Logger.Errorf("Invalid Stl File Path for '%v'", stlFile)
+		Logger.Errorf("Invalid Stl File Path for: '%v'", stlFile)
 		c.JSON(http.StatusBadRequest, gin.H{"message": "400 Bad Request"})
 		return
 	}
 
 	if !FindPrefixInStringArray(imagePath, config.Render.ImageFilePaths) {
-		Logger.Errorf("Invalid Image File Path for '%v'", imagePath)
+		Logger.Errorf("Invalid Image File Path for: '%v'", imagePath)
 		c.JSON(http.StatusBadRequest, gin.H{"message": "400 Bad Request"})
 		return
 	}
