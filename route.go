@@ -56,6 +56,8 @@ func render3d(c *gin.Context) {
 	stlFile := c.PostForm("stl-file")
 	imagePath := c.PostForm("image-path")
 
+	Logger.Infof("Received Post Params: 'model-id=%d, file-size=%s, stl-file=%s, fg-color=%s, bg-color=%s'", modelId, fileSize, stlFile, fgcolor, bgcolor)
+
 	size, err := strconv.Atoi(fileSize)
 	if err != nil {
 		Logger.Errorf("Parse size for: %s", err.Error())
