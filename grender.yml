@@ -14,8 +14,10 @@ log:
 render:
   stl-file-paths:
     - examples/
+    - /home/wwwroot/default/public/files/3DRendering/stl_file/
   image-file-paths:
     - examples/images/
+    - /home/wwwroot/default/public/files/3DRendering/image_file2/
 jwt:
   expires: 5
   issuer: 3d@grender
