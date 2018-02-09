@@ -102,7 +102,7 @@ func render3d(c *gin.Context) {
 
 	h, err := fauxgl_render(modelId, size, fgcolor, bgcolor, stlFile, imageFile)
 	if err != nil {
-		Logger.Errorf("Render Faield: %s", err.Error())
+		Logger.Errorf("Render Failed: %s", err.Error())
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Server Internal Error"})
 		return
 	}
