@@ -64,17 +64,18 @@ func render3d(c *gin.Context) {
 	stlFile := c.PostForm("stl-file")
 	imagePath := c.PostForm("image-path")
 
-	Logger.Infof("Received Post Params: 'model-id=%d, file-size=%s, stl-file=%s, fg-color=%s, bg-color=%s'", modelId, fileSize, stlFile, fgcolor, bgcolor)
+	Logger.Infof("Received Post Params: 'model-id=%d, file-size=%s, stl-file=%s, fg-color=%s, bg-color=%s'",
+		modelId, fileSize, stlFile, fgcolor, bgcolor)
 
 	size, err := strconv.Atoi(fileSize)
 	if err != nil {
 		Logger.Errorf("Parse size for: %s", err.Error())
-		c.JSON(http.StatusUnauthorized, gin.H{"message": "401 Unauthorized"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "400 Bad Request"})
 		return
 	}
 	if size <= 0 {
 		Logger.Errorf("Invalid size for: '%v'", fileSize)
-		c.JSON(http.StatusUnauthorized, gin.H{"message": "401 Unauthorized"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "400 Bad Request"})
 		return
 	}
 
@@ -107,7 +108,8 @@ func render3d(c *gin.Context) {
 		return
 	}
 
-	Logger.Infof("Render Succed for: 'model-id=%d, file-size=%d, stl-file=%s, image-file=%s'", modelId, size, stlFile, imageFile)
+	Logger.Infof("Render Succed for: 'model-id=%d, file-size=%d, stl-file=%s, image-file=%s'",
+		modelId, size, stlFile, imageFile)
 
 	c.JSON(http.StatusOK, h)
 }
