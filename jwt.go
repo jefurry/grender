@@ -7,12 +7,17 @@ import (
 )
 
 var (
-	JWTSecretKey string = "xxxxxxxxxx"
+	JWTSecretKey string = ""
 )
 
 func getKey() string {
+	if JWTSecretKey != "" {
+		return JWTSecretKey
+	}
+
 	key := os.Getenv("GRENDER_JWT_SECRET_KEY")
 	if key != "" {
+		JWTSecretKey = key
 		return key
 	}
 
