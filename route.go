@@ -4,10 +4,47 @@ import (
 	"github.com/gin-gonic/gin"
 	"net"
 	"net/http"
+	"os"
 	"path"
 	"strconv"
 	"strings"
 )
+
+const (
+	DEFAULT_RENDER_WIDTH  = 800
+	DEFAULT_RENDER_HEIGHT = 600
+)
+
+var (
+	rsize  *Size = render_size()
+	width  uint  = rsize.Width
+	height uint  = rsize.Height
+)
+
+type (
+	Size struct {
+		Width, Height uint
+	}
+)
+
+func render_size() *Size {
+	width := os.Getenv("GRENDER_WIDTH")
+	w, err := strconv.Atoi(width)
+	if err != nil || w <= 0 {
+		w = DEFAULT_RENDER_WIDTH
+	}
+
+	height := os.Getenv("GRENDER_HEIGHT")
+	h, err := strconv.Atoi(height)
+	if err != nil || h <= 0 {
+		h = DEFAULT_RENDER_HEIGHT
+	}
+
+	return &Size{
+		Width:  uint(w),
+		Height: uint(h),
+	}
+}
 
 // curl localhost:1323/render3d -H "Authorization: Bearer token" -X POST --data "bgcolor=13421772&fgcolor=205" --data-urlencode
 // curl localhost:1323/render3d -H "Authorization: Bearer token" -X POST --data "bg-color=13421772&fg-color=205&stl-file=examples/cab.stl&image-path=examples/images/"

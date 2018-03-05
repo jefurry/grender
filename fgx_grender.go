@@ -8,12 +8,10 @@ import (
 )
 
 const (
-	scale  = 1    // optional supersampling
-	width  = 1920 // output width in pixels
-	height = 1080 // output height in pixels
-	fovy   = 40   // vertical field of view in degrees
-	near   = 1    // near clipping plane
-	far    = 10   // far clipping plane
+	SCALE = 1  // optional supersampling
+	FOVY  = 50 // vertical field of view in degrees
+	NEAR  = 1  // near clipping plane
+	FAR   = 10 // far clipping plane
 )
 
 var (
@@ -91,13 +89,13 @@ func fauxgl_render(modelId, size int, fgcolor, bgcolor, stlFile, imageFile strin
 	mesh.SmoothNormalsThreshold(fauxgl.Radians(30))
 
 	// create a rendering context
-	context := fauxgl.NewContext(width*scale, height*scale)
+	context := fauxgl.NewContext(int(width)*SCALE, int(height)*SCALE)
 	context.ClearColorBufferWith(bc)
 
 	// create transformation matrix and light direction
 	aspect := float64(width) / float64(height)
-	matrix := fauxgl.LookAt(eye, center, up).Perspective(fovy, aspect, near, far)
-	//matrix := mesh.Center().LookAt(eye, center, up).Perspective(fovy, aspect, near, far)
+	matrix := fauxgl.LookAt(eye, center, up).Perspective(FOVY, aspect, NEAR, FAR)
+	//matrix := mesh.Center().LookAt(eye, center, up).Perspective(FOVY, aspect, NEAR, FAR)
 
 	// use builtin phong shader
 	shader := fauxgl.NewPhongShader(matrix, light, eye)
